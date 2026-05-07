@@ -47,7 +47,82 @@
     </section>
   </main>
 
+  <div class="spotlight" id="portfolio-spotlight" aria-hidden="true">
+    <div class="spotlight-backdrop" data-spotlight-close></div>
+    <div class="spotlight-dialog" role="dialog" aria-modal="true" aria-labelledby="spotlight-title">
+      <button class="spotlight-button spotlight-close" type="button" aria-label="Close image" data-spotlight-close>&times;</button>
+      <button class="spotlight-button spotlight-prev" type="button" aria-label="Previous image" data-spotlight-prev>&lsaquo;</button>
+      <figure class="spotlight-figure">
+        <img class="spotlight-image" src="" alt="">
+        <figcaption>
+          <span id="spotlight-title"></span>
+          <small id="spotlight-count"></small>
+        </figcaption>
+      </figure>
+      <button class="spotlight-button spotlight-next" type="button" aria-label="Next image" data-spotlight-next>&rsaquo;</button>
+    </div>
+  </div>
+
   <footer class="site-footer"><p>&copy; 2026 <a href="https://firstnormalform.com/">Chris White</a>. Applied Graphic Design for Digital Media.</p></footer>
+  <script>
+    const portfolioItems = Array.from(document.querySelectorAll(".portfolio-item"));
+    const spotlight = document.querySelector("#portfolio-spotlight");
+    const spotlightImage = spotlight.querySelector(".spotlight-image");
+    const spotlightTitle = spotlight.querySelector("#spotlight-title");
+    const spotlightCount = spotlight.querySelector("#spotlight-count");
+    const closeButtons = spotlight.querySelectorAll("[data-spotlight-close]");
+    const prevButton = spotlight.querySelector("[data-spotlight-prev]");
+    const nextButton = spotlight.querySelector("[data-spotlight-next]");
+    let activeIndex = 0;
+
+    function showSpotlight(index) {
+      activeIndex = (index + portfolioItems.length) % portfolioItems.length;
+      const item = portfolioItems[activeIndex];
+      const image = item.querySelector(".portfolio-image");
+      const title = item.querySelector("h2").textContent;
+      const week = item.querySelector("span").textContent;
+
+      spotlightImage.src = image.src;
+      spotlightImage.alt = image.alt;
+      spotlightTitle.textContent = `${week}: ${title}`;
+      spotlightCount.textContent = `${activeIndex + 1} of ${portfolioItems.length}`;
+      spotlight.classList.add("is-open");
+      spotlight.setAttribute("aria-hidden", "false");
+      document.body.classList.add("spotlight-open");
+      nextButton.focus();
+    }
+
+    function closeSpotlight() {
+      spotlight.classList.remove("is-open");
+      spotlight.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("spotlight-open");
+      portfolioItems[activeIndex].focus();
+    }
+
+    portfolioItems.forEach((item, index) => {
+      item.setAttribute("tabindex", "0");
+      item.setAttribute("role", "button");
+      item.setAttribute("aria-label", `Open ${item.querySelector("h2").textContent}`);
+      item.addEventListener("click", () => showSpotlight(index));
+      item.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          showSpotlight(index);
+        }
+      });
+    });
+
+    closeButtons.forEach((button) => button.addEventListener("click", closeSpotlight));
+    prevButton.addEventListener("click", () => showSpotlight(activeIndex - 1));
+    nextButton.addEventListener("click", () => showSpotlight(activeIndex + 1));
+
+    document.addEventListener("keydown", (event) => {
+      if (!spotlight.classList.contains("is-open")) return;
+      if (event.key === "Escape") closeSpotlight();
+      if (event.key === "ArrowLeft") showSpotlight(activeIndex - 1);
+      if (event.key === "ArrowRight") showSpotlight(activeIndex + 1);
+    });
+  </script>
 </body>
 </html>
 

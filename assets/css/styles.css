@@ -352,6 +352,18 @@ h3 {
   grid-column: span 2;
 }
 
+.portfolio-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: rgba(255, 250, 240, 0.72);
+}
+
 .art-card {
   display: grid;
   place-items: center;

@@ -234,6 +234,11 @@ dd {
   background: rgba(255, 250, 240, 0.58);
 }
 
+.portfolio-item {
+  min-width: 0;
+  overflow: hidden;
+}
+
 .band .feature {
   color: var(--paper);
   background: rgba(255, 255, 255, 0.06);
@@ -355,8 +360,9 @@ h3 {
 .portfolio-image {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  max-width: 100%;
+  height: clamp(9rem, 14vw, 12rem);
+  object-fit: contain;
   object-position: center;
   margin-bottom: 1rem;
   border: 1px solid var(--line);

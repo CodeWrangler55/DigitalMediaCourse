@@ -1,6 +1,6 @@
 # Digital Media Course
 
-Live public course and teaching portfolio by Chris White for a 16-week Applied Graphic Design for Digital Media course.
+Public course site for a 16-week Applied Graphic Design for Digital Media course.
 
 Instructor site: https://firstnormalform.com/
 
@@ -13,8 +13,8 @@ The site is designed for GitHub Pages and uses plain static HTML/CSS from the re
 - `schedule.html` - 16-week course schedule
 - `assignments.html` - major assignments
 - `rubrics.html` - assessment rubrics
-- `portfolio.html` - instructor portfolio map
-- `about.html` - teaching approach and role alignment
+- `portfolio.html` - course example gallery
+- `about.html` - teaching approach
 
 ## GitHub Pages
 
